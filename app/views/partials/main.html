@@ -1,0 +1,96 @@
+<div class="row">
+
+    <div id="messages" ng-show="message">{{ message }}</div>
+
+    <form class="form-horizontal" name="athleteForm" ng-submit="submit(athleteForm.$valid)" novalidate>
+
+        <div class="form-group" ng-class="{ 'has-error' : athleteForm.board.$invalid && submitted }">
+            <label class="col-sm-3 control-label" for="ath-board">Leaderboard ID</label>
+            <div class="col-sm-6">
+                <input class="form-control" size="12" type="text" class="form-control" id="ath-board" ng-model="formData.board" name="board" placeholder="432713" required />
+                <small class="text-muted">
+                    <strong>Quick picks:</strong> <a ng-click="setId(399516)" href="#">All CFHSV</a>, <a ng-click="setId(432713)" href="#">CFHSV - Men</a>, <a ng-click="setId(439095)" href="#">CFHSV - Women</a>
+                </small>
+            </div>
+
+            <p ng-show="athleteForm.board.$invalid && submitted" class="help-block">A leaderboard ID is required.</p>
+ 
+        </div>
+
+        <div class="form-group">
+            <label class="col-sm-3 control-label" for="ath-name">Your full name</label>
+            <div class="col-sm-6">
+                <input class="form-control" size="30" type="text" class="form-control" id="ath-name" name="name" ng-model="formData.name" placeholder="Adam Campbell" />
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-sm-offset-3 col-sm-9">
+                <!-- <button class="btn btn-primary" type="submit" submit-button="Loading...">Submit</button> -->
+                <button class="btn btn-primary" type="submit" submit-button="'Loading...'" ng-model="loading">Submit</button>
+            </div>
+        </div>
+    </form>
+
+<!--     <strong>athleteForm.$pristine =</strong> {{athleteForm.$pristine}}<br />
+    <strong>athleteForm.$valid =</strong> {{athleteForm.$valid}}<br />
+    <strong>athleteForm.$invalid =</strong> {{athleteForm.$invalid}}<br />
+    <strong>submitted =</strong> {{submitted}}<br /> -->
+
+</div>
+
+<div class="row scores-area" ng-show="scores">
+
+    <div class="row average-area">
+        <div class="col-xs-12">
+            <h3>Average Scores</h3>
+        </div>
+
+        <div class="col-md-2" ng-repeat="average in averages">
+            <h4>Round {{average.round}}</h4>
+            <h2>{{average.score}}</h2>
+        </div>        
+    </div>
+
+
+    <div class="col-md-12">
+        <h3>All Scores</h3>
+
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th><a href="#" ng-click="predicate = 'place'; reverse=!reverse">Place</a></th>
+                    <th><a href="#" ng-click="predicate = 'name'; reverse=!reverse">Name</a></th>
+                    <th><a href="#" ng-click="predicate = 'rounds[0].score'; reverse=!reverse">Round 1</a></th>
+                    <th><a href="#" ng-click="predicate = 'rounds[1].score'; reverse=!reverse">Round 2</a></th>
+                    <th><a href="#" ng-click="predicate = 'rounds[2].score'; reverse=!reverse">Round 3</a></th>
+                    <th><a href="#" ng-click="predicate = 'rounds[3].score'; reverse=!reverse">Round 4</a></th>
+                    <th><a href="#" ng-click="predicate = 'rounds[4].score'; reverse=!reverse">Round 5</a></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="scorecard in scores | orderBy:predicate:reverse" ng-class="{ 'info' : scorecard.target }">
+                    <td>{{scorecard.place}}</td>
+                    <th>{{scorecard.name}}</th>
+
+                    <td ng-repeat="round in scorecard.rounds">
+                        {{round.score}} <span ng-show="round.deviation" class="label" ng-class="{ 'label-danger' : round.deviation < 0, 'label-success' : round.deviation > 0 }">{{round.deviation}}%</span>
+                    </td>
+
+                    <!--
+                    <td>{{scorecard.rounds[0].score}} <span class="label" ng-class="{ 'label-danger' : scorecard.rounds[0].deviation < 0, 'label-success' : scorecard.rounds[0].deviation > 0 }">{{scorecard.rounds[0].deviation}}</td>
+                    <td>{{scorecard.rounds[1].score}}</td>
+                    <td>{{scorecard.rounds[2].score}}</td>
+                    <td>{{scorecard.rounds[3].score}}</td>
+                    <td>{{scorecard.rounds[4].score}}</td>
+                    -->
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+</div>
+
+<!-- <div class="footer">
+    <p>♥ Adam</p>
+</div> -->
