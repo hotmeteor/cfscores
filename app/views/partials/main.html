@@ -46,15 +46,15 @@
             <h3>Average Scores</h3>
         </div>
 
-        <div class="col-md-2" ng-repeat="average in averages">
+        <div class="col-xs-2" ng-repeat="average in averages">
             <h4>Round {{average.round}}</h4>
             <h2>{{average.score}}</h2>
-        </div>        
+        </div>         
     </div>
 
 
     <div class="col-md-12">
-        <h3>All Scores</h3>
+        <h3>All Scores <small>({{scores.length}} athletes)</small></h3>
 
         <table class="table table-hover">
             <thead>
@@ -74,6 +74,7 @@
                     <th>{{scorecard.name}}</th>
 
                     <td ng-repeat="round in scorecard.rounds">
+                        <small ng-show="round.position" class="text-muted">({{round.position}})</small>
                         {{round.score}} <span ng-show="round.deviation" class="label" ng-class="{ 'label-danger' : round.deviation < 0, 'label-success' : round.deviation > 0 }">{{round.deviation}}%</span>
                     </td>
 
