@@ -1,6 +1,6 @@
 {
-  "name": "sites",
-  "version": "0.0.0",
+  "name": "cfscores",
+  "version": "0.2.1",
   "dependencies": {
     "express": "~3.4.3",
     "lodash": "~2.4.1",
